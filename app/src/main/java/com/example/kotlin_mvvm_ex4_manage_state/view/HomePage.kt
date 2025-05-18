@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,6 +28,10 @@ fun HomePage() {
         mutableStateOf("")
     }
 
+    var nameSaveable by rememberSaveable {
+        mutableStateOf("")
+    }
+
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -36,9 +41,18 @@ fun HomePage() {
         Spacer(Modifier.height(30.dp))
 
         // remember: persist state on recomposition
+        Text(text = "Remember variable")
         MyText(name)
         MyTextField(name, onNameChange = {
             name = it
+        })
+        Spacer(Modifier.height(30.dp))
+
+        // rememberSaveable: persist even on configuration changes
+        Text(text = "RememberSaveable variable")
+        MyText(nameSaveable)
+        MyTextField(nameSaveable, onNameChange = {
+            nameSaveable = it
         })
         Spacer(Modifier.height(30.dp))
     }
