@@ -10,6 +10,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -19,9 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.kotlin_mvvm_ex4_manage_state.ViewModel.HomePageViewModel
 
 @Composable
-fun HomePage() {
+fun HomePage(viewModel: HomePageViewModel) {
     Log.i("HomePage", "is called.")
 
     var name by remember {
@@ -31,6 +33,8 @@ fun HomePage() {
     var nameSaveable by rememberSaveable {
         mutableStateOf("")
     }
+
+    val nameLiveData by viewModel.name.observeAsState(initial = "")
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -53,6 +57,18 @@ fun HomePage() {
         MyText(nameSaveable)
         MyTextField(nameSaveable, onNameChange = {
             nameSaveable = it
+        })
+        Spacer(Modifier.height(30.dp))
+
+        /**
+         * ViewModel and Livedata:
+         * Persist even on configuration changes.
+         * Host the state for reusable and testable.
+         */
+        Text(text = "ViewModel and Livedata variable")
+        MyText(nameLiveData)
+        MyTextField(nameLiveData, onNameChange = {
+            viewModel.onNameUpdate(it)
         })
         Spacer(Modifier.height(30.dp))
     }

@@ -14,6 +14,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.ViewModelProvider
+import com.example.kotlin_mvvm_ex4_manage_state.ViewModel.HomePageViewModel
 import com.example.kotlin_mvvm_ex4_manage_state.ui.theme.Kotlin_mvvm_ex4_manage_stateTheme
 import com.example.kotlin_mvvm_ex4_manage_state.view.HomePage
 
@@ -21,8 +23,11 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        val viewModel = ViewModelProvider(this)[HomePageViewModel::class]
+
         setContent {
-            HomePage()
+            HomePage(viewModel)
         }
     }
 }
