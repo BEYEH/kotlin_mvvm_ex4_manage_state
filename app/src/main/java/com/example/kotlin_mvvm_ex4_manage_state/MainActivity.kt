@@ -15,17 +15,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.kotlin_mvvm_ex4_manage_state.ui.theme.Kotlin_mvvm_ex4_manage_stateTheme
+import com.example.kotlin_mvvm_ex4_manage_state.view.HomePage
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) { Text(text = "Kotlin") }
+            HomePage()
         }
     }
 }
